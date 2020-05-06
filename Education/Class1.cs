@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Net.Security;
@@ -7,6 +8,7 @@ using System.Runtime.InteropServices;
 using System.Runtime.InteropServices.WindowsRuntime;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms.VisualStyles;
 
 namespace Education
 {
@@ -19,7 +21,9 @@ namespace Education
             //Print(GetSquare(418));
 
             
-            chislonaoborot(123);
+           // chislonaoborot(123);
+           // Console.WriteLine(chasuGradusi());
+           JaggedArray();
         }
 
        public static void chislonaoborot(int chislo)
@@ -86,5 +90,76 @@ namespace Education
         {
             return Math.Sqrt((double) a).ToString();
         }
+        public static int chasuGradusi()
+        {
+            string chas = null;
+            int prov = 0;
+            int result = 0;
+            int v1Chasu = 30;
+            Console.WriteLine("введите часы");
+             chas = Console.ReadLine();
+            try
+            {
+                prov = int.Parse(chas);
+            }
+            catch (FormatException E)
+            {
+                Console.WriteLine("not number");
+            }
+
+            if (prov > 0 | prov < 24)
+            {
+                if (prov > 12)
+                {
+                    prov = prov - 12;
+                    result = v1Chasu * prov;
+                }
+                else
+                {
+                    result = v1Chasu * prov;
+                }
+            }
+            else
+            {
+                Console.WriteLine("Ввели неверное число");
+            }
+
+            return result;
+        }
+
+        public static void JaggedArray()//создание заполнение отображение ступенчатого массива
+        {
+            int[][] arr = new int[4][];
+            arr[0] = new int[5];
+            arr[1] = new int[6];
+            arr[2] = new int[7];
+            arr[3] = new int[3];
+            Console.WriteLine(arr.Length);
+            for (int i = 0; i < arr.Length; i++)
+            {
+                Console.WriteLine($"заполняем уровень : {i}");
+                Console.WriteLine();
+                for (int j = 0; j < arr[i].Length; j++)
+                {
+                    arr[i][j] = j;
+                }
+            }
+            Console.WriteLine("Отобразим всю созданную прелесть");
+            for (int i = 0; i < arr.Length; i++)
+            {
+                for (int j = 0; j < arr[i].Length; j++)
+                {
+                    Console.Write(arr[i][j]+" ");
+                }
+                Console.WriteLine();
+            }
+
+
+            int[,] arr2 = { {1, 2, 3},{2,1,3}};
+
+            string str = String.Join(",", arr2);
+            Console.WriteLine(str);
+        }
     }
+    
 }

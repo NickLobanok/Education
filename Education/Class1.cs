@@ -23,7 +23,8 @@ namespace Education
             
            // chislonaoborot(123);
            // Console.WriteLine(chasuGradusi());
-           JaggedArray();
+           //JaggedArray();
+           otrezok(96);
         }
 
        public static void chislonaoborot(int chislo)
@@ -40,6 +41,7 @@ namespace Education
         string sss = chislo.ToString();
             Console.WriteLine(sss);
             char[] ch = sss.ToCharArray();
+            string c = new string(ch);
             Array.Reverse(ch);
             Console.WriteLine(new string(ch));
         }
@@ -154,11 +156,29 @@ namespace Education
                 Console.WriteLine();
             }
 
-
             int[,] arr2 = { {1, 2, 3},{2,1,3}};
 
             string str = String.Join(",", arr2);
             Console.WriteLine(str);
+        }
+
+        public static void otrezok(int a)
+        {
+            int doPriamoia = 0;
+            int tochka = a;
+            int nachalo = 8;
+            int konec = 32;
+            if (nachalo - tochka < 0 & konec < tochka)
+            {
+                doPriamoia = tochka - konec;
+                Console.WriteLine(doPriamoia);
+            }
+           else if (nachalo - tochka > 0)
+            {
+                doPriamoia = nachalo - tochka;
+                Console.WriteLine(doPriamoia);
+            }
+            else Console.WriteLine("the point on the line");
         }
     }
     

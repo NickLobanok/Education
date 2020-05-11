@@ -20,31 +20,45 @@ namespace Education
             // test.Noknod();
             //Print(GetSquare(418));
 
-            
-           // chislonaoborot(123);
-           // Console.WriteLine(chasuGradusi());
-           //JaggedArray();
-           otrezok(96);
+
+            // chislonaoborot(123);
+            // Console.WriteLine(chasuGradusi());
+            //JaggedArray();
+           // otrezok(96);
+           Stuck ob = new Stuck(6);
+           for (int i = 0; i < 6; i++)
+           {
+               Console.WriteLine($"Помещаем в стек {i}\n");
+               ob.put(i);
+           } Console.WriteLine();
+           Console.Write("обьем = "); ob.capacity();
+           for (int i = 0; i < 6; i++)
+           {
+               //Console.Write("Вынимаем из стека ");
+               ob.pop();
+           }
+           
         }
 
-       public static void chislonaoborot(int chislo)
+        public static void chislonaoborot(int chislo)
         {
-        //    string str = chislo.ToString();
-        //    int i = str.Length-1;
-        //    string vozvrat = null;
-        //    while (i >= 0)
-        //    {
-        //        vozvrat += str[i];
-        //        i--;
-        //    }
-        //    return vozvrat;
-        string sss = chislo.ToString();
+            //    string str = chislo.ToString();
+            //    int i = str.Length-1;
+            //    string vozvrat = null;
+            //    while (i >= 0)
+            //    {
+            //        vozvrat += str[i];
+            //        i--;
+            //    }
+            //    return vozvrat;
+            string sss = chislo.ToString();
             Console.WriteLine(sss);
             char[] ch = sss.ToCharArray();
             string c = new string(ch);
             Array.Reverse(ch);
             Console.WriteLine(new string(ch));
         }
+
         void Noknod()
         {
             Console.WriteLine("Введите первое число");
@@ -92,6 +106,7 @@ namespace Education
         {
             return Math.Sqrt((double) a).ToString();
         }
+
         public static int chasuGradusi()
         {
             string chas = null;
@@ -99,7 +114,7 @@ namespace Education
             int result = 0;
             int v1Chasu = 30;
             Console.WriteLine("введите часы");
-             chas = Console.ReadLine();
+            chas = Console.ReadLine();
             try
             {
                 prov = int.Parse(chas);
@@ -129,7 +144,7 @@ namespace Education
             return result;
         }
 
-        public static void JaggedArray()//создание заполнение отображение ступенчатого массива
+        public static void JaggedArray() //создание заполнение отображение ступенчатого массива
         {
             int[][] arr = new int[4][];
             arr[0] = new int[5];
@@ -146,17 +161,19 @@ namespace Education
                     arr[i][j] = j;
                 }
             }
+
             Console.WriteLine("Отобразим всю созданную прелесть");
             for (int i = 0; i < arr.Length; i++)
             {
                 for (int j = 0; j < arr[i].Length; j++)
                 {
-                    Console.Write(arr[i][j]+" ");
+                    Console.Write(arr[i][j] + " ");
                 }
+
                 Console.WriteLine();
             }
 
-            int[,] arr2 = { {1, 2, 3},{2,1,3}};
+            int[,] arr2 = {{1, 2, 3}, {2, 1, 3}};
 
             string str = String.Join(",", arr2);
             Console.WriteLine(str);
@@ -173,13 +190,89 @@ namespace Education
                 doPriamoia = tochka - konec;
                 Console.WriteLine(doPriamoia);
             }
-           else if (nachalo - tochka > 0)
+            else if (nachalo - tochka > 0)
             {
                 doPriamoia = nachalo - tochka;
                 Console.WriteLine(doPriamoia);
             }
             else Console.WriteLine("the point on the line");
         }
+
+        private static string GetMinX(int a, int b, int c)
+        {
+            double rezult = 0.0;
+            double d;
+            if (a < 0) return "Impossible";
+            else
+            {
+                d = b * b - 4 * a * c;
+                if (d == 0)
+                {
+                    rezult = -b/2*a;
+                }
+                else if (d < 0)
+                {
+                    return "Impossible";
+                }
+                else
+                {
+                    double x1;
+                    double x2;
+                    x1 = (-b - (System.Math.Sqrt(d))) / 2*a;
+                    x2 = (-b + (System.Math.Sqrt(d))) / 2*a;
+                    if (x1 < x2)
+                    {
+                        rezult = x1;
+                    }
+
+                    else rezult = x2;
+                }
+
+            }
+            return rezult.ToString(); // так можно вернуть строковое представление числа
+        }
+
     }
-    
+
+    class Stuck
+    {
+        private int size;
+        private int numm;
+        private int[] arr;
+        public  Stuck(int size)
+        {
+            this.size = size;
+            arr = new int[size];
+            numm = 0;
+        }
+
+        public void put(int i) 
+        {
+            if (numm == arr.Length  )
+            {
+                Console.WriteLine("stack is full");
+                return;
+            }
+            arr[numm] = i;
+            Console.WriteLine("in the stack now "+arr[i]);
+            numm++;
+        }
+
+        public void pop()
+        {
+            if (numm == 0)
+            {
+                Console.WriteLine("Stack is empty");
+                return;
+            }
+            //Console.WriteLine(string.Join(",",arr));
+            Console.WriteLine(arr[numm-1]);
+            numm--;
+        }
+
+        public void capacity()
+        {
+            Console.WriteLine(numm);
+        }
+    }
 }

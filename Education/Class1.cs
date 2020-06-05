@@ -12,34 +12,54 @@ using System.Windows.Forms.VisualStyles;
 
 namespace Education
 {
+    
     class Class1
     {
         static void Main()
         {
-            // Class1 test = new Class1();
-            // test.Noknod();
-            //Print(GetSquare(418));
-
-
-            // chislonaoborot(123);
-            // Console.WriteLine(chasuGradusi());
-            //JaggedArray();
-           // otrezok(96);
-           Stuck ob = new Stuck(6);
-           for (int i = 0; i < 6; i++)
-           {
-               Console.WriteLine($"Помещаем в стек {i}\n");
-               ob.put(i);
-           } Console.WriteLine();
-           Console.Write("обьем = "); ob.capacity();
-           for (int i = 0; i < 6; i++)
-           {
-               //Console.Write("Вынимаем из стека ");
-               ob.pop();
-           }
-           
+            
+            Console.ReadKey();
         }
 
+        public static void OddInTime()
+        {
+            // Мой логичный способ
+            int iter = 0;
+            string str = null;
+            int[] arr = { 20, 1, -1, 2, -2, 3, 3, 5, 5, 1, 2, 4, 20, 4, -1, -2, 5 };
+            HashSet<int> newa = new HashSet<int>(arr);
+            foreach (int a in newa)
+            {
+                iter = 0;
+                Console.WriteLine($"Следующее число на проверке {a}");
+                for (int i = 0; i < arr.Length; i++)
+                {
+                    if (a == arr[i])
+                    {
+                        iter++;
+                    }
+                }
+                Console.WriteLine($"{a} повторяется {iter} раз(а)");
+                if ((iter % 2 != 0) & iter > 1)
+                {
+                    str = iter.ToString();
+                    Console.WriteLine($"!!!!! Искомое знаечение {str}\n");
+                }
+
+            }
+            // second Method
+            int iter2 = 0;
+            Console.WriteLine("Исполнение через исключающее или XOR");
+            int[] arr2 = { 2, 3, 8, 2, 3 };
+            for (int i = 0; i < arr.Length; i++)
+            {
+                //подразрядный исключающий или 
+                iter2 ^= arr[i];
+                //Third Method
+                // return seq.GroupBy(x => x).Single(g => g.Count() % 2 == 1).Key; самый умный способ - пока мне не понятен
+            }
+            Console.WriteLine(iter2);
+        }
         public static void chislonaoborot(int chislo)
         {
             //    string str = chislo.ToString();
@@ -57,6 +77,7 @@ namespace Education
             string c = new string(ch);
             Array.Reverse(ch);
             Console.WriteLine(new string(ch));
+            
         }
 
         void Noknod()
@@ -95,11 +116,6 @@ namespace Education
 
             Console.Write("smth wrong");
             Console.ReadKey();
-        }
-
-        static void Print(string arg)
-        {
-            Console.WriteLine(arg);
         }
 
         static string GetSquare(int a)
@@ -198,17 +214,23 @@ namespace Education
             else Console.WriteLine("the point on the line");
         }
 
-        private static string GetMinX(int a, int b, int c)
+        private static string GetMinX(int a, int b, int c, out double first, out double second)
         {
+            double x1 = 0.0;
+            double x2 = 0.0;
             double rezult = 0.0;
-            double d;
+            double d = 0.0;
+            first = x1;
+            second = x2;
             if (a < 0) return "Impossible";
             else
             {
                 d = b * b - 4 * a * c;
                 if (d == 0)
                 {
-                    rezult = -b/2*a;
+                    rezult = -b / 2 * a;
+                    x1 = rezult;
+                    Console.WriteLine("есть тоько одно решение");
                 }
                 else if (d < 0)
                 {
@@ -216,63 +238,126 @@ namespace Education
                 }
                 else
                 {
-                    double x1;
-                    double x2;
-                    x1 = (-b - (System.Math.Sqrt(d))) / 2*a;
-                    x2 = (-b + (System.Math.Sqrt(d))) / 2*a;
+                    x1 = (-b - (System.Math.Sqrt(d))) / 2 * a;
+                    x2 = (-b + (System.Math.Sqrt(d))) / 2 * a;
                     if (x1 < x2)
                     {
                         rezult = x1;
                     }
-
                     else rezult = x2;
                 }
 
             }
-            return rezult.ToString(); // так можно вернуть строковое представление числа
+
+            first = x1;
+            second = x2;
+            return rezult.ToString();
+            // так можно вернуть строковое представление числа
         }
 
+        /// <summary>
+        /// Перегруженыый метод ShowBit показывает числа в двоичном представлении
+        /// </summary>
+        /// <param name="num"></param>
+        static void ShowBit(int num, int positive)
+        {
+            String res = null;
+            String resP = null;
+            for (int i = 128; i > 0; i = i / 2)
+            {
+                if ((num & i) == 0)
+                {
+                    res += "0";
+                }
+                else
+                {
+                    res += "1";
+                }
+
+                if ((positive & i) == 0)
+                {
+                    resP += "0";
+                }
+                else
+                {
+                    resP += "1";
+                }
+
+            }
+
+            Console.WriteLine($"Подразрядное значени введенного числа {num} при типе данных int = " + res);
+            Console.WriteLine("Средствами C# " + Convert.ToString(num, 2));
+            Console.WriteLine($"Подразрядное значени введенного числа {positive} при типе данных int = " + resP);
+            Console.WriteLine("Средствами C# " + Convert.ToString(positive, 2));
+        }
+
+        // метод перегружен и при введение числа типа short примениться этот метод
+        static void ShowBit(short num)
+        {
+
+        }
+        static void FromStrtoBit(String str)
+        {
+            double result = 0;
+            double ex = 0;
+            for (int i = str.Length; i > 0; i--)
+            {
+                if (str[i-1] == '1')
+                    result += Math.Pow(2, ex);
+                ex++;
+            }
+            Console.WriteLine(result);
+        }
+
+        static bool IsIsogram(string str)
+        {
+            return str.ToLower().Distinct().Count() == str.Length;
+        }
     }
 
     class Stuck
-    {
-        private int size;
-        private int numm;
-        private int[] arr;
-        public  Stuck(int size)
         {
-            this.size = size;
-            arr = new int[size];
-            numm = 0;
-        }
+            private int size;
+            private int numm;
+            private int[] arr;
 
-        public void put(int i) 
-        {
-            if (numm == arr.Length  )
+            public Stuck(int size)
             {
-                Console.WriteLine("stack is full");
-                return;
+                this.size = size;
+                arr = new int[size];
+                numm = 0;
             }
-            arr[numm] = i;
-            Console.WriteLine("in the stack now "+arr[i]);
-            numm++;
-        }
 
-        public void pop()
-        {
-            if (numm == 0)
+            public void put(int i)
             {
-                Console.WriteLine("Stack is empty");
-                return;
-            }
-            //Console.WriteLine(string.Join(",",arr));
-            Console.WriteLine(arr[numm-1]);
-            numm--;
-        }
+                if (numm == arr.Length)
+                {
+                    Console.WriteLine("stack is full");
+                    return;
+                }
 
-        public void capacity()
-        {
-            Console.WriteLine(numm);
+                arr[numm] = i;
+                Console.WriteLine("in the stack now " + arr[i]);
+                numm++;
+            }
+
+            public void pop()
+            {
+                if (numm == 0)
+                {
+                    Console.WriteLine("Stack is empty");
+                    return;
+                }
+
+                //Console.WriteLine(string.Join(",",arr));
+                Console.WriteLine(arr[numm - 1]);
+                numm--;
+            }
+
+            public void capacity()
+            {
+                Console.WriteLine(numm);
+            }
         }
-    }
+    
 }
